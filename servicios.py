@@ -1,12 +1,12 @@
 # ARCHIVO: servicios.py
 # CLASE ABSTRACTA SERVICIO Y CLASES DERICADAS
 
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from entidades import Entidad
 import math
 
 # CLASE ABSTRACTA SERVICIO 
-class Servicio(Entidad):
+class Servicio(Entidad, ABC):
     def __init__(self, identificador, nombre, precio_base, disponible=True):
         super().__init__(identificador)
 
@@ -39,37 +39,37 @@ class Servicio(Entidad):
      return self._disponible
 
     def cambiar_disponibilidad(self, estado):
-            if not isinstance(estado, bool):
-                raise ValueError("El estado debe ser booleano.")
+        if not isinstance(estado, bool):
+          raise ValueError("El estado debe ser booleano.")
 
-            self._disponible = estado
+        self._disponible = estado
 
         # Validación común de los calculos
 
     def _calcular_total(self, duracion, impuesto, descuento):
-            if isinstance(duracion, bool) or not isinstance(duracion, (int, float)):
-                raise ValueError("La duración debe ser numérica. ")
+        if isinstance(duracion, bool) or not isinstance(duracion, (int, float)):
+            raise ValueError("La duración debe ser numérica. ")
 
-            if not math.isfinite(duracion) or duracion <= 0:
-                raise ValueError("La duración debe ser mayor que cero. ")
+        if not math.isfinite(duracion) or duracion <= 0:
+            raise ValueError("La duración debe ser mayor que cero. ")
 
-            if not isinstance(impuesto, (int, float)) or isinstance(impuesto, bool):
-                raise ValueError("El impuesto debe ser numérico.")
+        if not isinstance(impuesto, (int, float)) or isinstance(impuesto, bool):
+            raise ValueError("El impuesto debe ser numérico.")
 
-            if not isinstance(descuento, (int, float)) or isinstance(descuento, bool):
-                raise ValueError("El descuento debe ser numérico.")
+        if not isinstance(descuento, (int, float)) or isinstance(descuento, bool):
+            raise ValueError("El descuento debe ser numérico.")
 
-            if not math.isfinite(impuesto) or not 0 <= impuesto <= 1:
-                raise ValueError("El impuesto debe estar entre 0 y 1.")
+        if not math.isfinite(impuesto) or not 0 <= impuesto <= 1:
+            raise ValueError("El impuesto debe estar entre 0 y 1.")
 
-            if not math.isfinite(descuento) or not 0 <= descuento <= 1:
-                raise ValueError("El descuento debe estar entre 0 y 1.")
+        if not math.isfinite(descuento) or not 0 <= descuento <= 1:
+            raise ValueError("El descuento debe estar entre 0 y 1.")
 
-            subtotal = self._precio_base * duracion
-            valor_descuento = subtotal * descuento
-            subtotal_descuento = subtotal - valor_descuento
-            total = subtotal_descuento * (1 + impuesto)
-            return round(total, 2)
+        subtotal = self._precio_base * duracion
+        valor_descuento = subtotal * descuento
+        subtotal_descuento = subtotal - valor_descuento
+        total = subtotal_descuento * (1 + impuesto)
+        return round(total, 2)
 
         # Métodos que deben  implementar los servicios especializados
         
@@ -177,10 +177,11 @@ class AsesoriaEspecializada(Servicio):
 
         modalidades_validas = ["virtual", "presencial"]
 
-        if not isinstance(self.modalidad, str) or self.modalidad.lower() not in modalidades_validas:
+        if not isinstance(self.modalidad, str): 
             raise ValueError("La modalidad debe ser virtual o presencial. ")
 
-        self.modalidad = self.modalidad.lower()
+        if self.modalidad not in modalidades_validas:
+            raise ValueError("La modalidad debe ser virtual o presencial.")
 
     def calcular_costo(self, duracion, impuesto=0.19, descuento=0):
         if not self.disponible:
