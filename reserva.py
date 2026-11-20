@@ -8,7 +8,7 @@ from cliente import Cliente
 from servicios import Servicio, AlquilerEquipo
 
 # Se importan las excepciones personalizadas y funciones de apoyo
-from Excepciones import (
+from excepciones import (
     ReservaInvalidaError,
     EstadoReservaError,
     ServicioNoDisponibleError,
