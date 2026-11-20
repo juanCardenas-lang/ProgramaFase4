@@ -148,10 +148,14 @@ class AlquilerEquipo(Servicio):
         return round(total * cantidad, 2)
 
     def describir_servicio(self):
+        estado = "Disponible" if self.disponible else "No disponible"
+
         return (
             f"Alquiler de equipo: {self.nombre}\n"
             f"Tipo de equipo: {self.tipo_equipo}\n"
-            f"Precio por hora: ${self.precio_base:,.2f}")
+            f"Precio por hora: ${self.precio_base:,.2f}\n"
+            f"Estado: {estado}"
+    )
 
     def mostrar_informacion(self):
         return self.describir_servicio()
@@ -181,7 +185,7 @@ class AsesoriaEspecializada(Servicio):
             raise ValueError("La modalidad debe ser virtual o presencial. ")
 
         self.modalidad = self.modalidad.strip().lower()
-        
+
         if self.modalidad not in modalidades_validas:
             raise ValueError("La modalidad debe ser virtual o presencial.")
 
