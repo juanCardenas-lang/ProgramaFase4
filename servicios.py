@@ -180,6 +180,8 @@ class AsesoriaEspecializada(Servicio):
         if not isinstance(self.modalidad, str): 
             raise ValueError("La modalidad debe ser virtual o presencial. ")
 
+        self.modalidad = self.modalidad.strip().lower()
+        
         if self.modalidad not in modalidades_validas:
             raise ValueError("La modalidad debe ser virtual o presencial.")
 
