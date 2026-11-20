@@ -2,7 +2,7 @@
 # REGISTRO DE OPERACIONES Y ERRORES DEL SISTEMA
 
 import logging
-from Excepciones import ErrorRegistro
+from excepciones import ErrorRegistro
 
 
 # Funcion para preparar el archivo de registros.
