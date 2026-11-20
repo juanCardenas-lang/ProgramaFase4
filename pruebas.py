@@ -4,7 +4,7 @@
 from cliente import Cliente
 from servicios import ReservaSala, AlquilerEquipo, AsesoriaEspecializada
 
-from Excepciones import (
+from excepciones import (
     DatosInvalidosError,
     ErrorDuracionInvalida,
     ParametroInvalidoError,
